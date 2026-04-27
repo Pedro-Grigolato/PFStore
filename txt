@@ -1,0 +1,5 @@
+git config --global user.name Pedro-Grigolato
+git config --global user.email gzpedrao16@gmail.com
+
+dotnet new webapi -o PFStore.API --use-controllers
+
