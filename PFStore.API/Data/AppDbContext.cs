@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using PFStore.API.Data.Seeds;
 using PFStore.API.Models;
 
 namespace PFStore.API.Data;
@@ -21,6 +22,7 @@ public class AppDbContext : IdentityDbContext<Usuario>
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+
         base.OnModelCreating(builder);
         #region Ceonfiguração das Tabelas do Identity
         builder.Entity<Usuario>().ToTable("usuarios");
@@ -30,6 +32,12 @@ public class AppDbContext : IdentityDbContext<Usuario>
         builder.Entity<IdentityUserToken<string>>().ToTable("usuario_tokens");
         builder.Entity<IdentityUserLogin<string>>().ToTable("usuario_logins");
         builder.Entity<IdentityRoleClaim<string>>().ToTable("perfil_regras");
+        #endregion
+
+        #region Objetos para mock de dados
+        SeedUsuario seedUsuario = new (builder);
+        SeedCategoria seedCategoria = new (builder);
+        SeedProduto seedProduto = new (builder);
         #endregion
     }
 }
