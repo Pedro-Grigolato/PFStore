@@ -90,18 +90,13 @@ builder.Services.AddSwaggerGen(c =>
         Description = "API de fornecimento de dados de proidutos"
     });
 
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            }, new string[]{}
-        }
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {       
+        Description = "Cabeçalho da Autorização JWT. Exemplo: \"Authorization: Bearer {token}\"",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
     });
 });
 
@@ -120,12 +115,12 @@ using (var scope = app.Services.CreateScope())
 //Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    //app.MapOpenApi();
+    
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "PFStore v1");
-        c.RoutePrefix = string.Empty
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "PFStore.API v1");
+        c.RoutePrefix = string.Empty;
     });
 }
 
@@ -136,16 +131,6 @@ app.UseStaticFiles(); //Importante para o gerenciamento de imagens no backend
 app.UseCors("AllowAll");
 
 app.UseAuthentication();
-
-app.UseAuthorization();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
-
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
