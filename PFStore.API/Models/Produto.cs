@@ -11,7 +11,7 @@ namespace PFStore.API.Models;
 public class Produto
 {
     [Key]
-    public int id { get; set; }
+    public int Id { get; set; }
 
     [Required]
     public int CategoriaId { get; set; }
@@ -28,7 +28,7 @@ public class Produto
     public string Descricao { get; set; }
 
     [Required]
-    public int Quantidade { get; set; } = 0;
+    public int QuantIdade { get; set; } = 0;
 
     [Required]
     [Column(TypeName = "decimal(12,2)")]
